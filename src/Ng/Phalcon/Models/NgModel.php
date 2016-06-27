@@ -144,7 +144,7 @@ class NgModelBase extends Model implements NgModelInterface
 
     public static function getPrimaryKey()
     {
-        return self::ID;
+        return self::transformKey(self::ID);
     }
 
     // get created by field
