@@ -94,17 +94,23 @@ class NgModelBase extends Model implements NgModelInterface
         $opt    = array();
 
         if (!empty($class::getCreatedTimeField())) {
-            $opt['beforeCreate'] = array(
+            $arr = array(
                 'field' => $class::getCreatedTimeField(),
                 'value' => date("Y-m-d H:i:s"),
             );
+
+            $opt['beforeCreate']                = $arr;
+            $opt['beforeValidationOnCreate']    = $arr;
         }
 
         if (!empty($class::getUpdatedTimeField())) {
-            $opt['beforeUpdate'] = array(
+            $arr = array(
                 'field' => $class::getUpdatedTimeField(),
                 'value' => date("Y-m-d H:i:s"),
             );
+
+            $opt['beforeUpdate']                = $arr;
+            $opt['beforeValidationOnUpdate']    = $arr;
         }
 
         if (!empty($class::getDeletedTimeField())) {
