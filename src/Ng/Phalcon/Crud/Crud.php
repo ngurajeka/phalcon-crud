@@ -19,6 +19,7 @@ use Ng\Phalcon\Models\NgModelInterface;
 use Ng\Query\Condition\SimpleCondition;
 use Ng\Query\Operator;
 use Ng\Query\Query;
+
 use Phalcon\Mvc\Model;
 use Phalcon\Mvc\Model\Message;
 use Phalcon\Mvc\Model\TransactionInterface as Tx;
@@ -154,6 +155,8 @@ class Crud
             unset($msg);
             unset($src);
             unset($trace);
+
+            throw new Exception($e->getMessage());
         }
 
         return $data;
