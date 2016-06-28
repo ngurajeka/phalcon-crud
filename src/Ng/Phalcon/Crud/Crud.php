@@ -233,7 +233,7 @@ class Crud
         }
 
         $query->appendCondition(
-            new SimpleCondition($field, Operator::OP_EQUALS, $model::VALUE_DEL)
+            new SimpleCondition($field, Operator::OP_EQUALS, $model::VALUE_NOTDEL)
         );
 
     }
