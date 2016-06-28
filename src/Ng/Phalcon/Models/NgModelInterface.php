@@ -29,17 +29,6 @@ interface NgModelInterface
     const VALUE_DEL     = 1;
     const VALUE_NOTDEL  = 0;
 
-    // crud
-    public function save(array $data=null, array $whiteList=null);
-    public function create($data=null, $whiteList=null);
-    public function update($data=null, $whiteList=null);
-    public function delete();
-
-    public function getMessages();
-
-    // set sql transaction
-    public function setTransaction(TransactionInterface $tx);
-
     // is this model want to implement soft delete behaviour
     public function useSoftDelete();
 
