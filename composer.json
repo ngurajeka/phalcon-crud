@@ -6,7 +6,7 @@
     "require": {
         "php": ">=5.4.0",
         "ngurajeka/ngerrors": ">=1.0.0",
-        "ngurajeka/ngquery": ">=1.0.0"
+        "ngurajeka/ngquery": "1.0.0.x-dev"
     },
     "license": "MIT",
     "authors": [
