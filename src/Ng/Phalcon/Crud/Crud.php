@@ -41,6 +41,11 @@ class Crud
 
     protected $hideDeleted = true;
 
+    public function __construct()
+    {
+        $this->ngerrors = new NgErrors();
+    }
+
     /**
      * Checking Error of a Message
      *
