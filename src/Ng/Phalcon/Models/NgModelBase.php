@@ -65,10 +65,6 @@ class NgModelBase extends Model implements NgModelInterface
         if ($this->useSoftDelete() === true) {
             $this->implementSoftDelete();
         }
-
-        if ($this->useTimestamp() === true) {
-            $this->implementTimestamp();
-        }
     }
 
     protected function implementSoftDelete()
