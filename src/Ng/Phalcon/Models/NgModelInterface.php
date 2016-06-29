@@ -32,9 +32,6 @@ interface NgModelInterface
     // is this model want to implement soft delete behaviour
     public function useSoftDelete();
 
-    // is this model want to implement timestamp behaviour
-    public function useTimestamp();
-
     // get primary key value from the model
     public function getId();
 

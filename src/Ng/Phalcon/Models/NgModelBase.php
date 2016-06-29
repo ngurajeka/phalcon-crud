@@ -87,52 +87,40 @@ class NgModelBase extends Model implements NgModelInterface
         $this->addBehavior(new SoftDelete($opt));
     }
 
-    protected function implementTimestamp()
+    public function beforeValidationOnCreate()
     {
-        /** @type NgModelInterface $class */
         $class  = get_called_class();
-        $opt    = array();
-
-        if (!empty($class::getCreatedTimeField())) {
-            $arr = array(
-                'field' => $class::getCreatedTimeField(),
-                'value' => date("Y-m-d H:i:s"),
-            );
-
-            $opt['beforeCreate']                = $arr;
-            $opt['beforeValidationOnCreate']    = $arr;
+        $field  = $class::getCreatedTimeField();
+        if (!empty($field)) {
+            $this->{$field} = date("Y-m-d H:i:s");
         }
 
-        if (!empty($class::getUpdatedTimeField())) {
-            $arr = array(
-                'field' => $class::getUpdatedTimeField(),
-                'value' => date("Y-m-d H:i:s"),
-            );
-
-            $opt['beforeUpdate']                = $arr;
-            $opt['beforeValidationOnUpdate']    = $arr;
+        $field  = $class::getDeletedField();
+        if (!empty($field)) {
+            $this->{$field} = NgModelInterface::VALUE_NOTDEL;
         }
+    }
 
-        if (!empty($class::getDeletedTimeField())) {
-            $opt['beforeDelete'] = array(
-                'field' => $class::getDeletedTimeField(),
-                'value' => date("Y-m-d H:i:s"),
-            );
+    public function beforeCreate()
+    {
+        $this->beforeValidationOnCreate();
+    }
+
+    public function beforeValidationOnUpdate()
+    {
+        $class  = get_called_class();
+        $field  = $class::getUpdatedTimeField();
+        if (!empty($field)) {
+            $this->{$field} = date("Y-m-d H:i:s");
         }
+    }
 
-        if (empty($opt)) {
-            return;
-        }
-
-        $this->addBehavior(new Timestampable($opt));
+    public function beforeUpdate()
+    {
+        $this->beforeValidationOnUpdate();
     }
 
     public function useSoftDelete()
-    {
-        return true;
-    }
-
-    public function useTimestamp()
     {
         return true;
     }
