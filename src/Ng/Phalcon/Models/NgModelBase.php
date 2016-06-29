@@ -153,6 +153,14 @@ class NgModelBase extends Model implements NgModelInterface
         return self::transformKey(self::ID);
     }
 
+    // get public fields
+    public static function getPublicFields()
+    {
+        return array(
+            self::transformKey(self::ID), self::transformKey(self::CREATED_AT)
+        );
+    }
+
     // get created by field
     public static function getCreatedByField()
     {

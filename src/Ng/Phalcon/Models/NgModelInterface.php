@@ -44,6 +44,9 @@ interface NgModelInterface
     // get primary key
     public static function getPrimaryKey();
 
+    // get public fields
+    public static function getPublicFields();
+
     // get created by field
     public static function getCreatedByField();
 
