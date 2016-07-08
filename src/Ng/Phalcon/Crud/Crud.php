@@ -107,7 +107,7 @@ class Crud
      * @param TransactionInterface  $tx    Transaction Interface for sql
      *
      * @throws Exception
-     * 
+     *
      * @return array()
      */
     public function read(
@@ -241,7 +241,12 @@ class Crud
 
     }
 
-    public function getNgErrors()
+    public function reset()
+    {
+        $this->ngerrors = new NgErrorList();
+    }
+
+    public function getErrors()
     {
         return $this->ngerrors;
     }
