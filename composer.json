@@ -2,10 +2,10 @@
     "name": "ngurajeka/phalcon-crud",
     "description": "Phalcon Crud",
     "type": "library",
-    "version": "1.0",
+    "version": "2.0",
     "require": {
         "php": ">=5.4.0",
-        "ngurajeka/ngerrors": ">=1.0.0",
+        "ngurajeka/ngerrors": "dev-master",
         "ngurajeka/ngquery": "1.0.0.x-dev"
     },
     "license": "MIT",
