@@ -31,13 +31,9 @@ class BasicError extends SimpleError
     protected $field;
     protected $type;
 
-    public function __construct($code,
-                                $field,
-                                $msg,
-                                $type,
-                                $source=null,
-                                $stackTrace=null)
-    {
+    public function __construct(
+        $code, $field, $msg, $type, $source=null, $stackTrace=null
+    ) {
         $this->field    = $field;
         $this->type     = $type;
         parent::__construct($code, $msg, $source, $stackTrace);

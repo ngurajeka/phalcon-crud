@@ -13,16 +13,15 @@
 namespace Ng\Phalcon\Crud;
 
 
+use Ng\Errors\NgErrorList;
 use Ng\Errors\NgErrorInterface;
-use Ng\Errors\NgErrors;
-use Ng\Phalcon\Models\NgModelInterface;
+use Ng\Phalcon\Models\NgModelBase;
+use Ng\Query\Query;
 use Ng\Query\Condition\SimpleCondition;
 use Ng\Query\Operator;
-use Ng\Query\Query;
 
-use Phalcon\Mvc\Model;
 use Phalcon\Mvc\Model\Message;
-use Phalcon\Mvc\Model\TransactionInterface as Tx;
+use Phalcon\Mvc\Model\TransactionInterface;
 
 /**
  * Crud Module
@@ -37,14 +36,14 @@ use Phalcon\Mvc\Model\TransactionInterface as Tx;
  */
 class Crud
 {
-    /** @type NgErrors #ngerrors */
+    /** @type NgErrorList #ngerrors */
     protected $ngerrors;
 
     protected $hideDeleted = true;
 
     public function __construct()
     {
-        $this->ngerrors = new NgErrors();
+        $this->ngerrors = new NgErrorList();
     }
 
     /**
@@ -74,14 +73,15 @@ class Crud
     /**
      * Creating Record Data
      *
-     * @param NgModelInterface $model object model
-     * @param array            $data  the data that we want to insert as record
-     * @param Tx               $tx    transaction interface for msyql
+     * @param NgModelBase           $model object model
+     * @param array                 $data  the data that we want to insert as record
+     * @param TransactionInterface  $tx    transaction interface for msyql
      *
      * @return boolean
      */
-    public function create(NgModelInterface &$model, array $data, Tx &$tx=null)
-    {
+    public function create(
+        NgModelBase &$model, array $data, TransactionInterface &$tx=null
+    ) {
         if (!is_null($tx)) {
             $model->setTransaction($tx);
         }
@@ -89,7 +89,7 @@ class Crud
         if (!$model->create($data)) {
 
             foreach ($model->getMessages() as $i => $err) {
-                $this->ngerrors->append($this->checkError($err));
+                $this->ngerrors->addError($this->checkError($err));
             }
 
             return false;
@@ -101,15 +101,17 @@ class Crud
     /**
      * Reading data record
      *
-     * @param NgModelInterface $model object model
-     * @param Query            $query object of query builder
-     * @param bool             $first a decision to read all or only the first record
-     * @param Tx               $tx    Transaction Interface for sql
+     * @param NgModelBase           $model object model
+     * @param Query                 $query object of query builder
+     * @param bool                  $first a decision to read all or only the first record
+     * @param TransactionInterface  $tx    Transaction Interface for sql
      *
+     * @throws Exception
+     * 
      * @return array()
      */
     public function read(
-        NgModelInterface $model, Query $query, $first=false, Tx &$tx=null
+        NgModelBase $model, Query $query, $first=false, TransactionInterface &$tx=null
     ) {
         if (!is_null($tx)) {
             $model->setTransaction($tx);
@@ -149,7 +151,7 @@ class Crud
             $trace  = $e->getTraceAsString();
             $error  = new Error\ExceptError(409, $msg, $src, $trace);
 
-            $this->ngerrors->append($error);
+            $this->ngerrors->addError($error);
 
             unset($error);
             unset($msg);
@@ -165,14 +167,15 @@ class Crud
     /**
      * Updating Record Data
      *
-     * @param NgModelInterface $model object model
-     * @param array            $data  updated data for the record
-     * @param Tx               $tx    transaction interface for sql
+     * @param NgModelBase           $model object model
+     * @param array                 $data  updated data for the record
+     * @param TransactionInterface  $tx    transaction interface for sql
      *
      * @return boolean
      */
-    public function update(NgModelInterface $model, array $data, Tx &$tx=null)
-    {
+    public function update(
+        NgModelBase $model, array $data, TransactionInterface &$tx=null
+    ) {
         if (!is_null($tx)) {
             $model->setTransaction($tx);
         }
@@ -180,7 +183,7 @@ class Crud
         if (!$model->update($data)) {
 
             foreach ($model->getMessages() as $i => $err) {
-                $this->ngerrors->append($this->checkError($err));
+                $this->ngerrors->addError($this->checkError($err));
             }
 
             return false;
@@ -192,12 +195,12 @@ class Crud
     /**
      * Delete an object
      *
-     * @param NgModelInterface $model
-     * @param Tx|null          $tx
+     * @param NgModelBase               $model
+     * @param TransactionInterface|null $tx
      *
      * @return bool
      */
-    public function delete(NgModelInterface $model, Tx &$tx=null) {
+    public function delete(NgModelBase $model, TransactionInterface &$tx=null) {
 
         if (!is_null($tx)) {
             $model->setTransaction($tx);
@@ -206,7 +209,7 @@ class Crud
         if (!$model->delete()) {
 
             foreach ($model->getMessages() as $i => $err) {
-                $this->ngerrors->append($this->checkError($err));
+                $this->ngerrors->addError($this->checkError($err));
             }
 
             return false;
@@ -218,10 +221,10 @@ class Crud
     /**
      * Append Query Deleted field
      *
-     * @param Query            $query
-     * @param NgModelInterface $model
+     * @param Query       $query
+     * @param NgModelBase $model
      */
-    private function queryDeleted(Query $query, NgModelInterface $model)
+    private function queryDeleted(Query $query, NgModelBase $model)
     {
         if (empty($model::getDeletedField())) {
             return;
