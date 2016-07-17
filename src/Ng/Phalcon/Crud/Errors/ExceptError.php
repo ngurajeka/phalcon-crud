@@ -1,6 +1,6 @@
 <?php
 /**
- * Crud Module
+ * Except Error
  *
  * PHP Version 5.4.x
  *
@@ -16,7 +16,7 @@ namespace Ng\Phalcon\Crud\Errors;
 use Ng\Errors\Error\SimpleError;
 
 /**
- * Crud Module
+ * Except Error
  *
  * PHP Version 5.4.x
  *

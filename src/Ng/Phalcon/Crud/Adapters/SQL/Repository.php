@@ -13,14 +13,13 @@
 namespace Ng\Phalcon\Crud\Adapter\SQL;
 
 
-use Ng\Phalcon\Crud\AbstractRepository;
-use Ng\Phalcon\Crud\Exception as CrudException;
-use Ng\Phalcon\Crud\Interfaces\SQLRepository;
-use Ng\Phalcon\Models\NgModel;
-use Ng\Query\Condition\ArrayCondition;
-use Ng\Query\Condition\SimpleCondition;
-use Ng\Query\Operator;
-use Ng\Query\Query;
+use Ng\Phalcon\Crud\Abstracts\SQL\Repository as AbstractRepository;
+use Ng\Phalcon\Crud\Exceptions\Exception;
+use Ng\Phalcon\Models\Abstracts\NgModel;
+use Ng\Query\Adapters\SQL\Conditions\ArrayCondition;
+use Ng\Query\Adapters\SQL\Conditions\SimpleCondition;
+use Ng\Query\Adapters\SQL\Query;
+use Ng\Query\Helpers\Operator;
 
 /**
  * SQLRepository Module
@@ -33,17 +32,8 @@ use Ng\Query\Query;
  * @license  MIT https://opensource.org/licenses/MIT
  * @link     https://github.com/ngurajeka/phalcon-crud
  */
-class Repository extends AbstractRepository implements SQLRepository
+class Repository extends AbstractRepository
 {
-    /** @type Crud $handler */
-    protected $handler;
-    
-    public function __construct(Crud $handler)
-    {
-        $this->handler = $handler;
-        parent::__construct();
-    }
-
     public function retrieveOneById(NgModel $model, $id)
     {
         $query = new Query();
@@ -72,9 +62,9 @@ class Repository extends AbstractRepository implements SQLRepository
     {
         try {
             $result = $this->handler->read($model, $query, true);
-        } catch (CrudException $e) {
+        } catch (Exception $e) {
             $this->errors->merge($this->handler->getErrors());
-            throw new CrudException($e->getMessage());
+            throw new Exception($e->getMessage());
         }
 
         return $result;
@@ -84,9 +74,9 @@ class Repository extends AbstractRepository implements SQLRepository
     {
         try {
             $result = $this->handler->read($model, $query, false);
-        } catch (CrudException $e) {
+        } catch (Exception $e) {
             $this->errors->merge($this->handler->getErrors());
-            throw new CrudException($e->getMessage());
+            throw new Exception($e->getMessage());
         }
 
         return $result;

@@ -1,6 +1,6 @@
 <?php
 /**
- * Crud Module
+ * EmptyField Error
  *
  * PHP Version 5.4.x
  *
@@ -16,7 +16,7 @@ namespace Ng\Phalcon\Crud\Errors;
 use Ng\Errors\Error\NotFound;
 
 /**
- * Crud Module
+ * EmptyField Error
  *
  * PHP Version 5.4.x
  *

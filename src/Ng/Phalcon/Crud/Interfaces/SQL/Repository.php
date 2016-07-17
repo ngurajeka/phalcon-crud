@@ -10,11 +10,11 @@
  * @license  MIT https://opensource.org/licenses/MIT
  * @link     https://github.com/ngurajeka/phalcon-crud
  */
-namespace Ng\Phalcon\Crud\Interfaces;
+namespace Ng\Phalcon\Crud\Interfaces\SQL;
 
 
-use Ng\Phalcon\Models\NgModel;
-use Ng\Query\Query;
+use Ng\Phalcon\Models\Abstracts\NgModel;
+use Ng\Query\Adapters\SQL\Query;
 
 /**
  * Repository Interfaces
@@ -25,7 +25,7 @@ use Ng\Query\Query;
  * @license  MIT https://opensource.org/licenses/MIT
  * @link     https://github.com/ngurajeka/phalcon-crud
  */
-interface SQLRepository
+interface Repository
 {
     public function retrieveOne(NgModel $model, Query $query);
 

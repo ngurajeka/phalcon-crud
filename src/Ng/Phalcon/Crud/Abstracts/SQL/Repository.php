@@ -1,6 +1,6 @@
 <?php
 /**
- * AbstractSQLCrud Module
+ * AbstractSQLRepository Module
  *
  * PHP Version 5.4.x
  *
@@ -14,10 +14,10 @@ namespace Ng\Phalcon\Crud\Abstracts\SQL;
 
 
 use Ng\Errors\NgErrorList;
-use Ng\Phalcon\Crud\Interfaces\SQL\Crud as CrudInterface;
+use Ng\Phalcon\Crud\Interfaces\SQL\Repository as RepositoryInterface;
 
 /**
- * AbstractSQLCrud Module
+ * AbstractSQLRepository Module
  *
  * PHP Version 5.4.x
  *
@@ -27,14 +27,17 @@ use Ng\Phalcon\Crud\Interfaces\SQL\Crud as CrudInterface;
  * @license  MIT https://opensource.org/licenses/MIT
  * @link     https://github.com/ngurajeka/phalcon-crud
  */
-abstract class Crud implements CrudInterface
+abstract class Repository implements RepositoryInterface
 {
     /** @type NgErrorList $errors */
     protected $errors;
+    /** @type Crud $handler */
+    protected $handler;
 
-    public function __construct()
+    public function __construct(Crud $crud)
     {
-        $this->errors = new NgErrorList();
+        $this->errors   = new NgErrorList();
+        $this->handler  = $crud;
     }
 
     /**
@@ -44,7 +47,7 @@ abstract class Crud implements CrudInterface
      */
     public function reset()
     {
-        $this->__construct();
+        $this->__construct(new $this->handler);
     }
 
     public function getErrors()

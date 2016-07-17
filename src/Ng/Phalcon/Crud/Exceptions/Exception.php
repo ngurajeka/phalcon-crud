@@ -10,7 +10,7 @@
  * @license  MIT https://opensource.org/licenses/MIT
  * @link     https://github.com/ngurajeka/phalcon-crud
  */
-namespace Ng\Phalcon\Crud;
+namespace Ng\Phalcon\Crud\Exceptions;
 
 
 /**

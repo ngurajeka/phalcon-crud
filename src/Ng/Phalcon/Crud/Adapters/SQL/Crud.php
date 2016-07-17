@@ -10,15 +10,14 @@
  * @license  MIT https://opensource.org/licenses/MIT
  * @link     https://github.com/ngurajeka/phalcon-crud
  */
-namespace Ng\Phalcon\Crud\Adapter\SQL;
+namespace Ng\Phalcon\Crud\Adapters\SQL;
 
 
 use Ng\Phalcon\Crud\Abstracts\SQL\Crud as AbstractCrud;
+use Ng\Phalcon\Crud\Adapters\SQL\Traits\SoftDelete;
 use Ng\Phalcon\Crud\Errors\ExceptError as ExceptionError;
-use Ng\Phalcon\Crud\Exception as CrudException;
-use Ng\Phalcon\Crud\Interfaces\SQL\Crud as CrudInterface;
+use Ng\Phalcon\Crud\Exceptions\Exception;
 use Ng\Phalcon\Crud\Helpers\MessageChecking;
-use Ng\Phalcon\Crud\Helpers\SoftDelete;
 use Ng\Phalcon\Models\Abstracts\NgModel;
 use Ng\Query\Adapters\SQL\Query;
 
@@ -33,7 +32,7 @@ use Ng\Query\Adapters\SQL\Query;
  * @license  MIT https://opensource.org/licenses/MIT
  * @link     https://github.com/ngurajeka/phalcon-crud
  */
-class Crud extends AbstractCrud implements SQLCrud
+class Crud extends AbstractCrud
 {
     use MessageChecking, SoftDelete;
 
@@ -59,13 +58,13 @@ class Crud extends AbstractCrud implements SQLCrud
         // TODO check and implement query to filter data that was using historical method
 
         if ($query->hasOrders()) {
-            $order  = $query->orderToString();
+            $order  = $query->stringifyOrder();
         } else {
             $order  = sprintf("%s DESC", $model::getPrimaryKey());
         }
 
         $params     = array(
-            $query->conditionToString(),
+            $query->toString(),
             "limit"     => $query->getLimit(),
             "offset"    => $query->getOffset(),
             "order"     => $order,
@@ -87,7 +86,7 @@ class Crud extends AbstractCrud implements SQLCrud
                 new ExceptionError(409, $msg, $source, $trace)
             );
 
-            throw new CrudException($e->getMessage());
+            throw new Exception($e->getMessage());
         }
 
         return $result;
