@@ -1,6 +1,6 @@
 <?php
 /**
- * Model Exception
+ * Except Error
  *
  * PHP Version 5.4.x
  *
@@ -10,11 +10,15 @@
  * @license  MIT https://opensource.org/licenses/MIT
  * @link     https://github.com/ngurajeka/phalcon-crud
  */
-namespace Ng\Phalcon\Models;
+namespace Ng\Phalcon\Crud\Errors;
 
+
+use Ng\Errors\Error\SimpleError;
 
 /**
- * Model Exception
+ * Except Error
+ *
+ * PHP Version 5.4.x
  *
  * @category Library
  * @package  Library
@@ -22,6 +26,6 @@ namespace Ng\Phalcon\Models;
  * @license  MIT https://opensource.org/licenses/MIT
  * @link     https://github.com/ngurajeka/phalcon-crud
  */
-class Exception extends \Exception
+class ExceptError extends SimpleError
 {
 }

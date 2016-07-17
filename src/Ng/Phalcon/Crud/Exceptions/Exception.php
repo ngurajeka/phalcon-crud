@@ -1,6 +1,6 @@
 <?php
 /**
- * Crud Module
+ * Crud Exception
  *
  * PHP Version 5.4.x
  *
@@ -10,15 +10,11 @@
  * @license  MIT https://opensource.org/licenses/MIT
  * @link     https://github.com/ngurajeka/phalcon-crud
  */
-namespace Ng\Phalcon\Crud\Error;
+namespace Ng\Phalcon\Crud\Exceptions;
 
-
-use Ng\Errors\Error\SimpleError;
 
 /**
- * Crud Module
- *
- * PHP Version 5.4.x
+ * Crud Exception
  *
  * @category Library
  * @package  Library
@@ -26,6 +22,6 @@ use Ng\Errors\Error\SimpleError;
  * @license  MIT https://opensource.org/licenses/MIT
  * @link     https://github.com/ngurajeka/phalcon-crud
  */
-class ExceptError extends SimpleError
+class Exception extends \Exception
 {
 }

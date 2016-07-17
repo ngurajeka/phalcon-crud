@@ -1,6 +1,6 @@
 <?php
 /**
- * Crud Module
+ * EmptyField Error
  *
  * PHP Version 5.4.x
  *
@@ -10,13 +10,13 @@
  * @license  MIT https://opensource.org/licenses/MIT
  * @link     https://github.com/ngurajeka/phalcon-crud
  */
-namespace Ng\Phalcon\Crud\Error;
+namespace Ng\Phalcon\Crud\Errors;
 
 
-use Ng\Errors\Error\SimpleError;
+use Ng\Errors\Error\NotFound;
 
 /**
- * Crud Module
+ * EmptyField Error
  *
  * PHP Version 5.4.x
  *
@@ -26,31 +26,19 @@ use Ng\Errors\Error\SimpleError;
  * @license  MIT https://opensource.org/licenses/MIT
  * @link     https://github.com/ngurajeka/phalcon-crud
  */
-class BasicError extends SimpleError
+class EmptyField extends NotFound
 {
     protected $field;
-    protected $type;
 
-    public function __construct($code,
-                                $field,
-                                $msg,
-                                $type,
-                                $source=null,
-                                $stackTrace=null)
+    public function __construct($field, $msg, $source=null, $stackTrace=null)
     {
-        $this->field    = $field;
-        $this->type     = $type;
-        parent::__construct($code, $msg, $source, $stackTrace);
+        $this->field = $field;
+        parent::__construct($msg, $source, $stackTrace);
     }
 
     public function getField()
     {
         return $this->field;
-    }
-
-    public function getType()
-    {
-        return $this->type;
     }
 
     public function toArray()
