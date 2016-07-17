@@ -5,9 +5,11 @@
     "version": "2.1",
     "require": {
         "php": ">=5.4.0",
-        "ngurajeka/phalcon-models": "1.1.x-dev",
+    },
+    "require-dev": {
+        "ngurajeka/phalcon-models": "dev-master",
         "ngurajeka/ngerrors": "dev-master",
-        "ngurajeka/ngquery": "1.0.0.x-dev"
+        "ngurajeka/ngquery": "dev-master"
     },
     "license": "MIT",
     "authors": [
