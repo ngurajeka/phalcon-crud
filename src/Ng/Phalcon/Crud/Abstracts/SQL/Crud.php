@@ -10,10 +10,11 @@
  * @license  MIT https://opensource.org/licenses/MIT
  * @link     https://github.com/ngurajeka/phalcon-crud
  */
-namespace Ng\Phalcon\Crud;
+namespace Ng\Phalcon\Crud\Abstract\SQL;
 
 
 use Ng\Errors\NgErrorList;
+use Ng\Phalcon\Crud\Interfaces\SQLCrud;
 
 /**
  * AbstractCrud Module
@@ -26,7 +27,7 @@ use Ng\Errors\NgErrorList;
  * @license  MIT https://opensource.org/licenses/MIT
  * @link     https://github.com/ngurajeka/phalcon-crud
  */
-abstract class AbstractCrud
+abstract class AbstractCrud implements SQLCRud
 {
     /** @type NgErrorList $errors */
     protected $errors;

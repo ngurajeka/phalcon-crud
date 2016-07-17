@@ -13,14 +13,14 @@
 namespace Ng\Phalcon\Crud\Adapter\SQL;
 
 
-use Ng\Phalcon\Crud\AbstractCrud;
+use Ng\Phalcon\Crud\Abstracts\SQL\Crud as AbstractCrud;
 use Ng\Phalcon\Crud\Errors\ExceptError as ExceptionError;
 use Ng\Phalcon\Crud\Exception as CrudException;
-use Ng\Phalcon\Crud\Interfaces\SQLCrud;
+use Ng\Phalcon\Crud\Interfaces\SQL\Crud as CrudInterface;
 use Ng\Phalcon\Crud\Helpers\MessageChecking;
 use Ng\Phalcon\Crud\Helpers\SoftDelete;
-use Ng\Phalcon\Models\NgModel;
-use Ng\Query\Query;
+use Ng\Phalcon\Models\Abstracts\NgModel;
+use Ng\Query\Adapters\SQL\Query;
 
 /**
  * SQLCrud Module
