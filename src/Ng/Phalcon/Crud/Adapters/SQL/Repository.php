@@ -10,7 +10,7 @@
  * @license  MIT https://opensource.org/licenses/MIT
  * @link     https://github.com/ngurajeka/phalcon-crud
  */
-namespace Ng\Phalcon\Crud\Adapter\SQL;
+namespace Ng\Phalcon\Crud\Adapters\SQL;
 
 
 use Ng\Phalcon\Crud\Abstracts\SQL\Repository as AbstractRepository;
