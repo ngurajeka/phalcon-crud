@@ -71,7 +71,7 @@ class Crud extends AbstractCrud
         $params     = array(
             $query->toString(),
             "limit"     => $query->getLimit(),
-            "offset"    => $query->getOffset(),
+            "offset"    => $offset,
             "order"     => $order,
         );
 
