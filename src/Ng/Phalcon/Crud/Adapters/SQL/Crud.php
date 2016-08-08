@@ -63,15 +63,10 @@ class Crud extends AbstractCrud
             $order  = sprintf("%s DESC", $model::getPrimaryKey());
         }
 
-        $offset     = 0;
-        if ($query->getOffset() > 0) {
-            $offset = $query->getOffset() - 1;
-        }
-
         $params     = array(
             $query->toString(),
             "limit"     => $query->getLimit(),
-            "offset"    => $offset,
+            "offset"    => $query->getOffset(),
             "order"     => $order,
         );
 
