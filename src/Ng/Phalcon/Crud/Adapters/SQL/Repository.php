@@ -15,11 +15,14 @@ namespace Ng\Phalcon\Crud\Adapters\SQL;
 
 use Ng\Phalcon\Crud\Abstracts\SQL\Repository as AbstractRepository;
 use Ng\Phalcon\Crud\Exceptions\Exception;
+use Ng\Phalcon\Crud\Helpers\MessageChecking;
 use Ng\Phalcon\Models\Abstracts\NgModel;
 use Ng\Query\Adapters\SQL\Conditions\ArrayCondition;
 use Ng\Query\Adapters\SQL\Conditions\SimpleCondition;
 use Ng\Query\Adapters\SQL\Query;
 use Ng\Query\Helpers\Operator;
+
+use Phalcon\Mvc\Model\Query\Status;
 
 /**
  * SQLRepository Module
@@ -34,6 +37,8 @@ use Ng\Query\Helpers\Operator;
  */
 class Repository extends AbstractRepository
 {
+    use MessageChecking;
+
     public function retrieveOneById(NgModel $model, $id)
     {
         $query = new Query();
@@ -120,5 +125,25 @@ class Repository extends AbstractRepository
         }
 
         return true;
+    }
+
+    public function executeQuery($q)
+    {
+        $di         = \Phalcon\Di\FactoryDefault::getDefault();
+        try {
+            $result = $di->getModelsManager()->executeQuery($q);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+
+        if ($result instanceOf Status) {
+            if ($result->succes() <> true) {
+                $errors = $this->parseMessage($result->getMessages());
+                $this->errors->addError($errors);
+                throw new Exception("Invalid Request");
+            }
+        }
+
+        return $result;
     }
 }
