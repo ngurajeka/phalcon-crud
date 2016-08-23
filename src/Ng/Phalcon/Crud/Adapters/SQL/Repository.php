@@ -138,8 +138,8 @@ class Repository extends AbstractRepository
 
         if ($result instanceOf Status) {
             if ($result->success() <> true) {
-                $errors = $this->parseMessage($result->getMessages());
-                $this->errors->addError($errors);
+                $errors = $this->parseMessages($result->getMessages());
+                $this->errors->merge($errors);
                 throw new Exception("Invalid Request");
             }
         }

@@ -14,6 +14,7 @@ namespace Ng\Phalcon\Crud\Helpers;
 
 
 use Ng\Errors\NgErrorInterface as NgError;
+use Ng\Errors\NgErrorList;
 use Ng\Phalcon\Crud\Errors\BasicError;
 use Ng\Phalcon\Crud\Errors\EmptyField;
 
@@ -54,5 +55,22 @@ trait MessageChecking
                 return new BasicError(409, $field, $msg, $type, $source);
                 break;
         }
+    }
+
+    /**
+     * Parsing Messages into an array of error adapter
+     *
+     * @param array $messages array of error message
+     *
+     * @return NgErrorList
+     */
+    protected function parseMessages(array $messages)
+    {
+        $errors = new NgErrorList();
+        foreach ($messages as $message) {
+            $errors->addError($this->parseMessage($message));
+        }
+
+        return $errors;
     }
 }
