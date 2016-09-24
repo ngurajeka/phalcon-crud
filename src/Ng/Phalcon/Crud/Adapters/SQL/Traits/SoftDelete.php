@@ -54,6 +54,9 @@ trait SoftDelete
             return;
         }
 
+		$className	= get_class($model);
+		$field		= sprintf("%s.%s", $className, $field);
+
         $query->appendCondition(
             new SimpleCondition($field, Operator::OP_EQUALS, NgModelSoftDelete::VALUE_NOTDEL)
         );
